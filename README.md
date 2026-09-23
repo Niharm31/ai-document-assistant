@@ -4,11 +4,11 @@
 
 Upload PDFs, retrieve relevant context, and ask questions with grounded answers and source references.
 
-<img src="https://img.shields.io/badge/Python-3.11%2B-3776AB" alt="Python">
-<img src="https://img.shields.io/badge/FastAPI-009688" alt="FastAPI">
-<img src="https://img.shields.io/badge/FAISS-7C3AED" alt="FAISS">
-<img src="https://img.shields.io/badge/Docker-2496ED" alt="Docker">
-<img src="https://img.shields.io/badge/License-MIT-22C55E" alt="MIT">
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![FAISS](https://img.shields.io/badge/FAISS-7C3AED)](https://github.com/facebookresearch/faiss)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-22C55E)](LICENSE)
 
 ---
 
@@ -59,55 +59,57 @@ Answer + Sources
 ## Architecture
 
 ```text
-                     ┌─────────────────┐
-                     │     Browser     │
-                     │  Web Interface  │
-                     └────────┬────────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │     FastAPI     │
-                     │     Backend     │
-                     └────────┬────────┘
-                              │
-                 ┌────────────┴────────────┐
-                 │                         │
-                 ▼                         ▼
-          ┌─────────────┐           ┌─────────────┐
-          │ PDF Pipeline│           │   Retrieval  │
-          │   PyMuPDF   │           │    FAISS     │
-          └──────┬──────┘           └──────┬──────┘
-                 │                         │
-                 └────────────┬────────────┘
-                              ▼
-                     ┌─────────────────┐
-                     │      Qwen3      │
-                     │    llama.cpp    │
-                     └────────┬────────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │ Answer + Sources│
-                     └─────────────────┘
+                    ┌─────────────────┐
+                    │     Browser     │
+                    │  Web Interface  │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │     FastAPI     │
+                    │     Backend     │
+                    └────────┬────────┘
+                             │
+                 ┌───────────┴───────────┐
+                 │                       │
+                 ▼                       ▼
+          ┌─────────────┐         ┌─────────────┐
+          │ PDF Pipeline│         │  Retrieval  │
+          │   PyMuPDF   │         │    FAISS    │
+          └──────┬──────┘         └──────┬──────┘
+                 │                       │
+                 └───────────┬───────────┘
+                             ▼
+                    ┌─────────────────┐
+                    │      Qwen3      │
+                    │    llama.cpp    │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ Answer + Sources│
+                    └─────────────────┘
 ```
 
 ## Tech Stack
 
-**Backend**
+### Backend
 
 `Python` · `FastAPI` · `Pydantic` · `SQLAlchemy`
 
-**AI / Retrieval**
+### AI / Retrieval
 
 `Sentence Transformers` · `FAISS` · `RAG` · `Qwen3` · `llama.cpp`
 
-**Frontend**
+### Frontend
 
 `HTML` · `CSS` · `JavaScript`
 
-**Infrastructure**
+### Infrastructure
 
 `Docker` · `Docker Compose` · `GitHub Actions`
+
+---
 
 ## Quick Start
 
