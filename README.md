@@ -10,15 +10,15 @@ Upload PDFs, retrieve relevant context, and ask questions with grounded answers 
 
 
 
-\[!\[Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square\&logo=python\&logoColor=white)](https://www.python.org/)
+\[!\[Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)](https://www.python.org/)
 
-\[!\[FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square\&logo=fastapi\&logoColor=white)](https://fastapi.tiangolo.com/)
+\[!\[FastAPI](https://img.shields.io/badge/FastAPI-009688)](https://fastapi.tiangolo.com/)
 
-\[!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-7C3AED?style=flat-square)](https://github.com/facebookresearch/faiss)
+\[!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-7C3AED)](https://github.com/facebookresearch/faiss)
 
-\[!\[Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square\&logo=docker\&logoColor=white)](https://www.docker.com/)
+\[!\[Docker](https://img.shields.io/badge/Docker-2496ED)](https://www.docker.com/)
 
-\[!\[License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)](LICENSE)
+\[!\[License](https://img.shields.io/badge/License-MIT-22C55E)](LICENSE)
 
 
 
@@ -38,7 +38,7 @@ Instead of sending an entire document to an LLM, the system retrieves the most r
 
 
 
-\### Core workflow
+\### Core Workflow
 
 
 
@@ -152,77 +152,79 @@ Answer + Sources
 
 ```text
 
-&#x20;                        +------------------+
+&#x20;                   +-------------------+
 
-&#x20;                        |     Browser      |
+&#x20;                   |      Browser      |
 
-&#x20;                        |   Web Interface  |
+&#x20;                   |   Web Interface   |
 
-&#x20;                        +--------+---------+
+&#x20;                   +---------+---------+
 
-&#x20;                                 |
+&#x20;                             |
 
-&#x20;                                 v
+&#x20;                             v
 
-&#x20;                        +------------------+
+&#x20;                   +-------------------+
 
-&#x20;                        |     FastAPI      |
+&#x20;                   |      FastAPI      |
 
-&#x20;                        |      Backend     |
+&#x20;                   |      Backend      |
 
-&#x20;                        +--------+---------+
+&#x20;                   +---------+---------+
 
-&#x20;                                 |
+&#x20;                             |
 
-&#x20;                   +-------------+-------------+
+&#x20;              +--------------+--------------+
 
-&#x20;                   |                           |
+&#x20;              |                             |
 
-&#x20;                   v                           v
+&#x20;              v                             v
 
-&#x20;            +-------------+             +-------------+
+&#x20;      +---------------+             +---------------+
 
-&#x20;            | PDF Pipeline|             |  Retrieval  |
+&#x20;      | PDF Pipeline  |             |   Retrieval   |
 
-&#x20;            |   PyMuPDF   |             |    FAISS    |
+&#x20;      |               |             |               |
 
-&#x20;            |   Chunking  |             |  Embeddings |
+&#x20;      |    PyMuPDF    |             |     FAISS     |
 
-&#x20;            +------+------+             +------+------+
+&#x20;      |    Chunking   |             |  Embeddings   |
 
-&#x20;                   |                           |
+&#x20;      +-------+-------+             +-------+-------+
 
-&#x20;                   +-------------+-------------+
+&#x20;              |                             |
 
-&#x20;                                 |
+&#x20;              +--------------+--------------+
 
-&#x20;                                 v
+&#x20;                             |
 
-&#x20;                        +------------------+
+&#x20;                             v
 
-&#x20;                        |       LLM        |
+&#x20;                   +-------------------+
 
-&#x20;                        | Qwen3 / llama.cpp|
+&#x20;                   |        LLM        |
 
-&#x20;                        +--------+---------+
+&#x20;                   |  Qwen3 / llama.cpp|
 
-&#x20;                                 |
+&#x20;                   +---------+---------+
 
-&#x20;                                 v
+&#x20;                             |
 
-&#x20;                        +------------------+
+&#x20;                             v
 
-&#x20;                        | Grounded Answer  |
+&#x20;                   +-------------------+
 
-&#x20;                        |  + Source Pages  |
+&#x20;                   | Grounded Answer   |
 
-&#x20;                        +------------------+
+&#x20;                   |  + Source Pages   |
+
+&#x20;                   +-------------------+
 
 ```
 
 
 
-\### Request flow
+\### Request Flow
 
 
 
@@ -230,19 +232,19 @@ Answer + Sources
 
 2\. Extract text with PyMuPDF.
 
-3\. Split the content into page-aware chunks.
+3\. Split content into page-aware chunks.
 
 4\. Generate semantic embeddings.
 
 5\. Store embeddings in FAISS.
 
-6\. Convert the user question into a query embedding.
+6\. Convert the question into a query embedding.
 
 7\. Retrieve relevant document chunks.
 
-8\. Pass the retrieved context to the LLM.
+8\. Send the retrieved context to the LLM.
 
-9\. Return the answer with document sources.
+9\. Return the generated answer with document sources.
 
 
 
@@ -312,7 +314,7 @@ For local inference:
 
 
 
-\### 1. Clone
+\### Clone
 
 
 
@@ -326,7 +328,7 @@ cd ai-document-assistant
 
 
 
-\### 2. Create a virtual environment
+\### Create a Virtual Environment
 
 
 
@@ -358,7 +360,7 @@ source .venv/bin/activate
 
 
 
-\### 3. Install dependencies
+\### Install Dependencies
 
 
 
@@ -370,7 +372,7 @@ pip install -r requirements.txt
 
 
 
-\### 4. Configure environment
+\### Configure Environment
 
 
 
@@ -390,7 +392,7 @@ copy .env.example .env
 
 
 
-Configure your LLM:
+Configure:
 
 
 
@@ -418,11 +420,11 @@ CORS\_ORIGINS=\*
 
 
 
-> Keep `.env` private. Do not commit credentials or API keys.
+> Keep `.env` private. Never commit API keys or credentials.
 
 
 
-\### 5. Start the application
+\### Start the Application
 
 
 
@@ -512,7 +514,7 @@ curl http://127.0.0.1:8080/v1/models
 
 
 
-The application connects to:
+The application connects through:
 
 
 
@@ -532,7 +534,7 @@ http://127.0.0.1:8080/v1
 
 
 
-Build the image:
+Build:
 
 
 
@@ -556,7 +558,7 @@ docker run --env-file .env -p 8000:8000 ai-document-assistant
 
 
 
-Or use Docker Compose:
+Or:
 
 
 
@@ -568,7 +570,7 @@ docker compose up --build
 
 
 
-If Docker is running on Windows while llama.cpp runs directly on the host:
+When Docker runs on Windows while llama.cpp runs directly on the host:
 
 
 
@@ -606,7 +608,7 @@ See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment configuration.
 
 | `/api/documents/{id}` | DELETE | Delete a document |
 
-| `/api/chat` | POST | Ask a question |
+| `/api/chat` | POST | Ask a document question |
 
 | `/api/chat/{session\_id}/history` | GET | Retrieve conversation history |
 
@@ -646,7 +648,7 @@ python scripts/evaluate\_rag.py
 
 
 
-Evaluation questions are stored in:
+Evaluation questions:
 
 
 
