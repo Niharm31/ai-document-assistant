@@ -2,11 +2,11 @@
 
 
 
-> \*\*A local-first RAG system for intelligent PDF question answering.\*\*
+> \*\*Local-first RAG for intelligent PDF question answering.\*\*
 
 
 
-Upload a PDF → retrieve the relevant context → ask questions → get grounded answers with source pages.
+Upload a PDF → retrieve relevant context → ask questions → get grounded answers with source pages.
 
 
 
@@ -14,15 +14,13 @@ Upload a PDF → retrieve the relevant context → ask questions → get grounde
 
 
 
-!\[Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+\[!\[Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge\&logo=python\&logoColor=white)](https://www.python.org/)
 
-!\[FastAPI](https://img.shields.io/badge/FastAPI-API-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)
+\[!\[FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)](https://fastapi.tiangolo.com/)
 
-!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-00A67E?style=for-the-badge)
+\[!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-00A67E?style=for-the-badge)](https://github.com/facebookresearch/faiss)
 
-!\[RAG](https://img.shields.io/badge/RAG-LLM-8B5CF6?style=for-the-badge)
-
-!\[Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)
+\[!\[Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)](https://www.docker.com/)
 
 
 
@@ -38,11 +36,11 @@ Upload a PDF → retrieve the relevant context → ask questions → get grounde
 
 
 
-\*\*AI Document Assistant\*\* combines semantic search and Large Language Models to answer questions directly from your documents.
+\*\*AI Document Assistant\*\* is a Retrieval-Augmented Generation system designed to answer questions from PDF documents.
 
 
 
-Instead of sending an entire PDF to an LLM, the system retrieves the most relevant passages first and uses them as context for generation.
+Instead of sending an entire document to an LLM, it:
 
 
 
@@ -52,7 +50,7 @@ PDF
 
 &#x20;↓
 
-PyMuPDF
+Text Extraction
 
 &#x20;↓
 
@@ -64,11 +62,11 @@ Embeddings
 
 &#x20;↓
 
-FAISS
+FAISS Retrieval
 
 &#x20;↓
 
-Semantic Retrieval
+Relevant Context
 
 &#x20;↓
 
@@ -76,9 +74,13 @@ LLM
 
 &#x20;↓
 
-Answer + Sources
+Grounded Answer + Sources
 
 ```
+
+
+
+This makes the application suitable for document search, knowledge retrieval, and local AI workflows.
 
 
 
@@ -90,29 +92,37 @@ Answer + Sources
 
 
 
-| | Capability |
+\- PDF upload and text extraction
 
-|---|---|
+\- Page-aware document chunking
 
-| ◈ | PDF upload \& text extraction |
+\- Semantic embeddings
 
-| ◈ | Page-aware chunking |
+\- FAISS vector search
 
-| ◈ | Semantic vector search |
+\- Retrieval-Augmented Generation
 
-| ◈ | FAISS retrieval |
+\- Grounded answers with source pages
 
-| ◈ | Grounded RAG responses |
+\- Multi-document querying
 
-| ◈ | Multi-document querying |
+\- Conversation history
 
-| ◈ | Conversation history |
+\- Local Qwen3 / llama.cpp support
 
-| ◈ | Source page references |
+\- OpenAI-compatible LLM endpoints
 
-| ◈ | Local Qwen3 / llama.cpp |
+\- FastAPI backend
 
-| ◈ | Docker \& GitHub Actions |
+\- Web-based interface
+
+\- Docker support
+
+\- GitHub Actions CI
+
+\- Pytest test suite
+
+\- RAG retrieval evaluation
 
 
 
@@ -126,55 +136,61 @@ Answer + Sources
 
 ```text
 
-&#x20;                 ┌─────────────────┐
+&#x20;                   ┌──────────────────┐
 
-&#x20;                 │     Browser     │
+&#x20;                   │     Browser      │
 
-&#x20;                 └────────┬────────┘
+&#x20;                   │   HTML / CSS / JS│
 
-&#x20;                          │
+&#x20;                   └────────┬─────────┘
+
+&#x20;                            │
+
+&#x20;                            ▼
+
+&#x20;                   ┌──────────────────┐
+
+&#x20;                   │     FastAPI      │
+
+&#x20;                   │      Backend     │
+
+&#x20;                   └────────┬─────────┘
+
+&#x20;                            │
+
+&#x20;                ┌───────────┴───────────┐
+
+&#x20;                │                       │
+
+&#x20;                ▼                       ▼
+
+&#x20;         ┌─────────────┐        ┌─────────────┐
+
+&#x20;         │ PDF Pipeline│        │    FAISS    │
+
+&#x20;         │   PyMuPDF   │        │  Retrieval  │
+
+&#x20;         └──────┬──────┘        └──────┬──────┘
+
+&#x20;                │                      │
+
+&#x20;                └──────────┬───────────┘
+
+&#x20;                           ▼
+
+&#x20;                   ┌──────────────┐
+
+&#x20;                   │     LLM      │
+
+&#x20;                   │ Qwen3 / API  │
+
+&#x20;                   └──────┬───────┘
 
 &#x20;                          ▼
 
-&#x20;                 ┌─────────────────┐
+&#x20;                 Grounded Answer
 
-&#x20;                 │     FastAPI     │
-
-&#x20;                 └───────┬─────────┘
-
-&#x20;                         │
-
-&#x20;            ┌────────────┴────────────┐
-
-&#x20;            ▼                         ▼
-
-&#x20;     ┌─────────────┐           ┌─────────────┐
-
-&#x20;     │ PDF Pipeline│           │   FAISS      │
-
-&#x20;     │  PyMuPDF    │           │  Retrieval   │
-
-&#x20;     └──────┬──────┘           └──────┬──────┘
-
-&#x20;            │                         │
-
-&#x20;            └───────────┬─────────────┘
-
-&#x20;                        ▼
-
-&#x20;                 ┌─────────────┐
-
-&#x20;                 │     LLM     │
-
-&#x20;                 │ Qwen3 / API │
-
-&#x20;                 └──────┬──────┘
-
-&#x20;                        ▼
-
-&#x20;                Grounded Answer
-
-&#x20;                  + Sources
+&#x20;                   + Source Pages
 
 ```
 
@@ -188,35 +204,25 @@ Answer + Sources
 
 
 
-\*\*Backend\*\*
+| Layer | Technologies |
 
+|---|---|
 
+| Backend | Python, FastAPI, Pydantic |
 
-`Python` · `FastAPI` · `SQLAlchemy` · `SQLite` · `PyMuPDF`
+| PDF Processing | PyMuPDF |
 
+| Retrieval | FAISS, Sentence Transformers |
 
+| Database | SQLite, SQLAlchemy |
 
-\*\*AI / Retrieval\*\*
+| LLM | Qwen3, llama.cpp, OpenAI-compatible APIs |
 
+| Frontend | HTML, CSS, JavaScript |
 
+| Testing | Pytest |
 
-`Sentence Transformers` · `FAISS` · `RAG` · `Qwen3` · `llama.cpp`
-
-
-
-\*\*Frontend\*\*
-
-
-
-`HTML` · `CSS` · `JavaScript`
-
-
-
-\*\*DevOps\*\*
-
-
-
-`Docker` · `Docker Compose` · `GitHub Actions` · `Pytest`
+| DevOps | Docker, Docker Compose, GitHub Actions |
 
 
 
@@ -225,6 +231,28 @@ Answer + Sources
 
 
 \## 🚀 Quick Start
+
+
+
+\### Requirements
+
+
+
+\- Python 3.11+
+
+\- Git
+
+\- An OpenAI-compatible LLM endpoint
+
+
+
+For fully local inference:
+
+
+
+\- llama.cpp
+
+\- A compatible GGUF model
 
 
 
@@ -242,7 +270,11 @@ cd ai-document-assistant
 
 
 
-\### 2. Install
+\### 2. Create a virtual environment
+
+
+
+\*\*Windows\*\*
 
 
 
@@ -252,13 +284,37 @@ python -m venv .venv
 
 .venv\\Scripts\\activate
 
+```
+
+
+
+\*\*Linux / macOS\*\*
+
+
+
+```bash
+
+python3 -m venv .venv
+
+source .venv/bin/activate
+
+```
+
+
+
+\### 3. Install dependencies
+
+
+
+```bash
+
 pip install -r requirements.txt
 
 ```
 
 
 
-\### 3. Configure
+\### 4. Configure `.env`
 
 
 
@@ -278,11 +334,27 @@ LLM\_API\_KEY=local
 
 LLM\_MODEL=your-model-path
 
+
+
+APP\_ENV=production
+
+EMBEDDING\_MODEL=sentence-transformers/all-MiniLM-L6-v2
+
+TOP\_K=5
+
+MAX\_UPLOAD\_MB=20
+
+CORS\_ORIGINS=\*
+
 ```
 
 
 
-\### 4. Run
+> Keep `.env` private. Never commit API keys or credentials.
+
+
+
+\### 5. Start the application
 
 
 
@@ -298,7 +370,77 @@ Open:
 
 
 
-\*\*http://127.0.0.1:8000\*\*
+```text
+
+http://127.0.0.1:8000
+
+```
+
+
+
+\---
+
+
+
+\## 🦙 Local LLM with llama.cpp
+
+
+
+Example using a Qwen3 GGUF model:
+
+
+
+```powershell
+
+llama-server.exe `
+
+&#x20; -m "D:\\path\\to\\Qwen3-4B-Q4\_K\_M.gguf" `
+
+&#x20; --host 127.0.0.1 `
+
+&#x20; --port 8080
+
+```
+
+
+
+Check the server:
+
+
+
+```powershell
+
+curl http://127.0.0.1:8080/health
+
+```
+
+
+
+Expected:
+
+
+
+```json
+
+{"status":"ok"}
+
+```
+
+
+
+Check the loaded model:
+
+
+
+```powershell
+
+curl http://127.0.0.1:8080/v1/models
+
+```
+
+
+
+The application then communicates with llama.cpp through its OpenAI-compatible API.
 
 
 
@@ -310,6 +452,34 @@ Open:
 
 
 
+Build:
+
+
+
+```bash
+
+docker build -t ai-document-assistant .
+
+```
+
+
+
+Run:
+
+
+
+```bash
+
+docker run --env-file .env -p 8000:8000 ai-document-assistant
+
+```
+
+
+
+Or use Docker Compose:
+
+
+
 ```bash
 
 docker compose up --build
@@ -318,7 +488,7 @@ docker compose up --build
 
 
 
-For Docker connecting to llama.cpp running on the Windows host:
+When Docker runs on Windows while llama.cpp runs directly on the host:
 
 
 
@@ -330,7 +500,35 @@ LLM\_BASE\_URL=http://host.docker.internal:8080/v1
 
 
 
-See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment details.
+See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment configuration.
+
+
+
+\---
+
+
+
+\## 📡 API
+
+
+
+| Endpoint | Method | Description |
+
+|---|---|---|
+
+| `/health` | `GET` | Application health |
+
+| `/ready` | `GET` | Readiness status |
+
+| `/api/documents` | `GET` | List documents |
+
+| `/api/documents/upload` | `POST` | Upload a PDF |
+
+| `/api/documents/{id}` | `DELETE` | Delete a document |
+
+| `/api/chat` | `POST` | Ask a document question |
+
+| `/api/chat/{session\_id}/history` | `GET` | Get conversation history |
 
 
 
@@ -342,7 +540,11 @@ See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment details.
 
 
 
-The repository includes a lightweight retrieval evaluation utility using:
+The repository includes a lightweight retrieval evaluation utility.
+
+
+
+Metrics include:
 
 
 
@@ -364,6 +566,58 @@ python scripts/evaluate\_rag.py
 
 
 
+Evaluation data:
+
+
+
+```text
+
+evals/sample\_questions.json
+
+```
+
+
+
+These metrics evaluate retrieval behavior and should not be treated as a complete measurement of generated-answer quality.
+
+
+
+\---
+
+
+
+\## 🧪 Testing
+
+
+
+Run the test suite:
+
+
+
+```bash
+
+pytest
+
+```
+
+
+
+Compile the application:
+
+
+
+```bash
+
+python -m compileall app
+
+```
+
+
+
+GitHub Actions is configured to run automated project checks.
+
+
+
 \---
 
 
@@ -374,39 +628,57 @@ python scripts/evaluate\_rag.py
 
 ```text
 
-app/
+ai-document-assistant/
 
-├── api/
+│
 
-├── core/
+├── app/
 
-├── database/
+│   ├── api/
 
-├── models/
+│   ├── core/
 
-└── services/
+│   ├── database/
 
+│   ├── models/
 
+│   └── services/
 
-frontend/
+│
 
-tests/
+├── frontend/
 
-evals/
+├── tests/
 
-scripts/
+├── evals/
 
-docs/
+├── scripts/
 
+├── docs/
 
+├── data/
 
-Dockerfile
+│
 
-docker-compose.yml
+├── .github/
 
-requirements.txt
+│   └── workflows/
 
-DEPLOYMENT.md
+│
+
+├── Dockerfile
+
+├── docker-compose.yml
+
+├── requirements.txt
+
+├── pyproject.toml
+
+├── DEPLOYMENT.md
+
+├── LICENSE
+
+└── README.md
 
 ```
 
@@ -416,23 +688,29 @@ DEPLOYMENT.md
 
 
 
-\## 🔮 Roadmap
+\## 🔭 Roadmap
 
 
 
-\- \[ ] Streaming responses
+\- \[ ] Streaming LLM responses
 
 \- \[ ] OCR for scanned PDFs
 
-\- \[ ] Hybrid search
+\- \[ ] Hybrid keyword + vector search
 
 \- \[ ] Reranking
 
 \- \[ ] Authentication
 
-\- \[ ] Cloud deployment
+\- \[ ] Background document processing
+
+\- \[ ] Cloud object storage
 
 \- \[ ] Distributed vector storage
+
+\- \[ ] Advanced RAG evaluation
+
+\- \[ ] Observability and tracing
 
 
 
@@ -440,11 +718,29 @@ DEPLOYMENT.md
 
 
 
-\## License
+\## ⚠️ Current Limitations
 
 
 
-MIT
+\- FAISS storage is local and intended for a single application instance.
+
+\- Embedding generation can be CPU-intensive.
+
+\- Answer quality depends on the selected LLM and retrieved context.
+
+\- Large-scale deployments would benefit from distributed infrastructure.
+
+
+
+\---
+
+
+
+\## 📄 License
+
+
+
+MIT License — see \[`LICENSE`](LICENSE).
 
 
 
@@ -465,4 +761,16 @@ BTech — Artificial Intelligence \& Machine Learning
 
 
 \[GitHub](https://github.com/Niharm31) · \[LinkedIn](https://www.linkedin.com/in/nihar-mandal-b512b5288)
+
+
+
+\---
+
+
+
+<p align="center">
+
+Built with Python, FastAPI, FAISS and local LLM inference.
+
+</p>
 
