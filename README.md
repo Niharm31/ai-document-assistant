@@ -2,47 +2,43 @@
 
 
 
-A local-first \*\*Retrieval-Augmented Generation (RAG)\*\* application for asking questions about PDF documents.
+> \*\*Local-first RAG for intelligent PDF question answering.\*\*
 
 
 
-Upload a document, retrieve relevant content, and generate answers grounded in the document.
+Upload PDFs, retrieve relevant context, and ask questions with grounded answers and source references.
 
 
 
-\## Features
+!\[Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)
+
+!\[FastAPI](https://img.shields.io/badge/FastAPI-009688)
+
+!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-7C3AED)
+
+!\[Docker](https://img.shields.io/badge/Docker-2496ED)
+
+!\[License](https://img.shields.io/badge/License-MIT-22C55E)
 
 
 
-\- PDF upload and text extraction
-
-\- Page-aware document chunking
-
-\- Semantic search with Sentence Transformers
-
-\- FAISS vector retrieval
-
-\- Grounded LLM responses
-
-\- Source-page references
-
-\- Multi-document querying
-
-\- Conversation history
-
-\- Local Qwen3 inference with llama.cpp
-
-\- OpenAI-compatible LLM support
-
-\- FastAPI backend
-
-\- Docker support
-
-\- Automated testing and CI
+\---
 
 
 
-\## Architecture
+\## ✦ What is it?
+
+
+
+\*\*AI Document Assistant\*\* is a Retrieval-Augmented Generation system that lets users interact with PDF documents using natural language.
+
+
+
+Instead of sending the entire document to an LLM, it retrieves the most relevant content first and uses that context to generate the answer.
+
+
+
+\### Core Pipeline
 
 
 
@@ -50,35 +46,51 @@ Upload a document, retrieve relevant content, and generate answers grounded in t
 
 PDF
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 PyMuPDF
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 Chunking
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 Embeddings
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 FAISS
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 Semantic Retrieval
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 Relevant Context
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 LLM
 
-&#x20;↓
+&#x20;│
+
+&#x20;▼
 
 Answer + Sources
 
@@ -86,35 +98,167 @@ Answer + Sources
 
 
 
-\## Tech Stack
+\---
 
 
 
-\- \*\*Backend:\*\* Python, FastAPI, Pydantic
-
-\- \*\*Document Processing:\*\* PyMuPDF
-
-\- \*\*Embeddings:\*\* Sentence Transformers
-
-\- \*\*Vector Search:\*\* FAISS
-
-\- \*\*Database:\*\* SQLite, SQLAlchemy
-
-\- \*\*LLM:\*\* Qwen3, llama.cpp, OpenAI-compatible APIs
-
-\- \*\*Frontend:\*\* HTML, CSS, JavaScript
-
-\- \*\*Deployment:\*\* Docker, Docker Compose
-
-\- \*\*Testing:\*\* Pytest, GitHub Actions
+\## ⚡ Features
 
 
 
-\## Quick Start
+| Feature | Description |
+
+|---|---|
+
+| 📄 PDF Processing | Extract and index PDF content |
+
+| 🔎 Semantic Search | Find relevant content using embeddings |
+
+| 🧠 RAG | Generate answers from retrieved context |
+
+| 📚 Multi-Document | Query multiple documents |
+
+| 💬 Conversations | Maintain chat history |
+
+| 📍 Sources | Return relevant document pages |
+
+| 🦙 Local AI | Run Qwen3 through llama.cpp |
+
+| 🚀 API | FastAPI REST backend |
+
+| 🐳 Deployment | Docker + Docker Compose |
+
+| 🧪 Testing | Pytest + RAG evaluation |
+
+| ⚙️ CI | GitHub Actions |
 
 
 
-\### 1. Clone
+\---
+
+
+
+\## 🧩 Tech Stack
+
+
+
+\*\*Backend\*\*
+
+
+
+`Python` · `FastAPI` · `Pydantic` · `SQLAlchemy`
+
+
+
+\*\*AI / Retrieval\*\*
+
+
+
+`Sentence Transformers` · `FAISS` · `RAG` · `Qwen3` · `llama.cpp`
+
+
+
+\*\*Frontend\*\*
+
+
+
+`HTML` · `CSS` · `JavaScript`
+
+
+
+\*\*Infrastructure\*\*
+
+
+
+`Docker` · `GitHub Actions`
+
+
+
+\---
+
+
+
+\## 🏗️ Architecture
+
+
+
+```text
+
+&#x20;                   ┌───────────────┐
+
+&#x20;                   │    Browser    │
+
+&#x20;                   └───────┬───────┘
+
+&#x20;                           │
+
+&#x20;                           ▼
+
+&#x20;                   ┌───────────────┐
+
+&#x20;                   │    FastAPI    │
+
+&#x20;                   └───────┬───────┘
+
+&#x20;                           │
+
+&#x20;             ┌─────────────┴─────────────┐
+
+&#x20;             │                           │
+
+&#x20;             ▼                           ▼
+
+&#x20;       ┌─────────────┐             ┌─────────────┐
+
+&#x20;       │ PDF Pipeline│             │   FAISS     │
+
+&#x20;       │   PyMuPDF   │             │  Retrieval  │
+
+&#x20;       └──────┬──────┘             └──────┬──────┘
+
+&#x20;              │                           │
+
+&#x20;              └─────────────┬─────────────┘
+
+&#x20;                            ▼
+
+&#x20;                     ┌─────────────┐
+
+&#x20;                     │    Qwen3    │
+
+&#x20;                     │  llama.cpp  │
+
+&#x20;                     └──────┬──────┘
+
+&#x20;                            ▼
+
+&#x20;                     Answer + Sources
+
+```
+
+
+
+\---
+
+
+
+\## 🚀 Quick Start
+
+
+
+\### Requirements
+
+
+
+\- Python 3.11+
+
+\- Git
+
+\- OpenAI-compatible LLM endpoint
+
+
+
+\### Install
 
 
 
@@ -124,19 +268,13 @@ git clone https://github.com/Niharm31/ai-document-assistant.git
 
 cd ai-document-assistant
 
-```
 
-
-
-\### 2. Install
-
-
-
-```bash
 
 python -m venv .venv
 
 .venv\\Scripts\\activate
+
+
 
 pip install -r requirements.txt
 
@@ -144,11 +282,11 @@ pip install -r requirements.txt
 
 
 
-\### 3. Configure
+\### Configure
 
 
 
-Create `.env` from `.env.example` and configure your LLM endpoint.
+Create `.env` from `.env.example`.
 
 
 
@@ -168,7 +306,7 @@ LLM\_MODEL=your-model-path
 
 
 
-\### 4. Run
+\### Run
 
 
 
@@ -192,11 +330,15 @@ http://127.0.0.1:8000
 
 
 
-\## Local LLM
+\---
 
 
 
-The application can use Qwen3 GGUF models through llama.cpp.
+\## 🦙 Local Qwen3
+
+
+
+The application supports local GGUF models through llama.cpp.
 
 
 
@@ -204,33 +346,75 @@ The application can use Qwen3 GGUF models through llama.cpp.
 
 Browser
 
-&#x20;  ↓
+&#x20;  │
+
+&#x20;  ▼
 
 FastAPI :8000
 
-&#x20;  ↓
+&#x20;  │
+
+&#x20;  ▼
 
 llama.cpp :8080
 
-&#x20;  ↓
+&#x20;  │
 
-Qwen3
+&#x20;  ▼
+
+Qwen3 GGUF
 
 ```
 
 
 
-\## Evaluation
+\---
 
 
 
-The project includes retrieval evaluation using:
+\## 🐳 Docker
 
 
 
-\- Hit@K
+```bash
 
-\- Mean Reciprocal Rank (MRR)
+docker compose up --build
+
+```
+
+
+
+For Docker on Windows connecting to llama.cpp running on the host:
+
+
+
+```env
+
+LLM\_BASE\_URL=http://host.docker.internal:8080/v1
+
+```
+
+
+
+See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment details.
+
+
+
+\---
+
+
+
+\## 📊 RAG Evaluation
+
+
+
+Retrieval evaluation includes:
+
+
+
+\- \*\*Hit@K\*\*
+
+\- \*\*Mean Reciprocal Rank (MRR)\*\*
 
 
 
@@ -246,7 +430,11 @@ python scripts/evaluate\_rag.py
 
 
 
-\## Testing
+\---
+
+
+
+\## 🧪 Testing
 
 
 
@@ -258,7 +446,11 @@ pytest
 
 
 
-\## Project Structure
+\---
+
+
+
+\## 📁 Project Structure
 
 
 
@@ -302,47 +494,47 @@ DEPLOYMENT.md
 
 
 
-\## Limitations
+\---
 
 
 
-FAISS currently uses local storage and is intended for a single application instance. Larger deployments would require distributed storage and infrastructure.
+\## 🔭 Roadmap
 
 
 
-\## Roadmap
+\- \[ ] Streaming responses
+
+\- \[ ] OCR for scanned PDFs
+
+\- \[ ] Hybrid search
+
+\- \[ ] Reranking
+
+\- \[ ] Authentication
+
+\- \[ ] Cloud deployment
+
+\- \[ ] Distributed vector storage
 
 
 
-\- Streaming responses
-
-\- OCR for scanned PDFs
-
-\- Hybrid search
-
-\- Reranking
-
-\- Authentication
-
-\- Cloud deployment
-
-\- Distributed vector storage
+\---
 
 
 
-\## License
+\## 📄 License
 
 
 
-MIT License.
+MIT License
 
 
 
-\## Author
+\---
 
 
 
-\*\*Nihar Mandal\*\*
+\### Nihar Mandal
 
 
 
