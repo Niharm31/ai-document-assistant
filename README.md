@@ -1,546 +1,284 @@
-\# AI Document Assistant
+# AI Document Assistant
 
-
-
-> \*\*Local-first RAG for intelligent PDF question answering.\*\*
-
-
+> **Local-first RAG for intelligent PDF question answering**
 
 Upload PDFs, retrieve relevant context, and ask questions with grounded answers and source references.
 
+<img src="https://img.shields.io/badge/Python-3.11%2B-3776AB" alt="Python">
+<img src="https://img.shields.io/badge/FastAPI-009688" alt="FastAPI">
+<img src="https://img.shields.io/badge/FAISS-7C3AED" alt="FAISS">
+<img src="https://img.shields.io/badge/Docker-2496ED" alt="Docker">
+<img src="https://img.shields.io/badge/License-MIT-22C55E" alt="MIT">
 
+---
 
-!\[Python](https://img.shields.io/badge/Python-3.11%2B-3776AB)
+## Overview
 
-!\[FastAPI](https://img.shields.io/badge/FastAPI-009688)
+AI Document Assistant is a **Retrieval-Augmented Generation (RAG)** application for querying PDF documents with a local or OpenAI-compatible LLM.
 
-!\[FAISS](https://img.shields.io/badge/FAISS-Vector\_Search-7C3AED)
+Instead of sending an entire document to the model, the system retrieves the most relevant content first and uses it as context for the answer.
 
-!\[Docker](https://img.shields.io/badge/Docker-2496ED)
-
-!\[License](https://img.shields.io/badge/License-MIT-22C55E)
-
-
-
-\---
-
-
-
-\## ✦ What is it?
-
-
-
-\*\*AI Document Assistant\*\* is a Retrieval-Augmented Generation system that lets users interact with PDF documents using natural language.
-
-
-
-Instead of sending the entire document to an LLM, it retrieves the most relevant content first and uses that context to generate the answer.
-
-
-
-\### Core Pipeline
-
-
+## Core Pipeline
 
 ```text
-
 PDF
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
 PyMuPDF
-
-&#x20;│
-
-&#x20;▼
-
-Chunking
-
-&#x20;│
-
-&#x20;▼
-
-Embeddings
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
+Page-aware Chunking
+  ↓
+Sentence Transformers
+  ↓
 FAISS
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
 Semantic Retrieval
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
 Relevant Context
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
 LLM
-
-&#x20;│
-
-&#x20;▼
-
+  ↓
 Answer + Sources
-
 ```
 
+## Features
 
-
-\---
-
-
-
-\## ⚡ Features
-
-
-
-| Feature | Description |
-
+| | Feature |
 |---|---|
+| 📄 | PDF upload and text extraction |
+| 🔎 | Semantic document search |
+| 🧠 | Retrieval-Augmented Generation |
+| 📚 | Multi-document querying |
+| 💬 | Conversation history |
+| 📍 | Source-page references |
+| 🦙 | Local Qwen3 + llama.cpp |
+| 🚀 | FastAPI REST API |
+| 🐳 | Docker deployment |
+| 🧪 | Automated testing and RAG evaluation |
+| ⚙️ | GitHub Actions CI |
 
-| 📄 PDF Processing | Extract and index PDF content |
+## Architecture
 
-| 🔎 Semantic Search | Find relevant content using embeddings |
+```text
+                     ┌─────────────────┐
+                     │     Browser     │
+                     │  Web Interface  │
+                     └────────┬────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │     FastAPI     │
+                     │     Backend     │
+                     └────────┬────────┘
+                              │
+                 ┌────────────┴────────────┐
+                 │                         │
+                 ▼                         ▼
+          ┌─────────────┐           ┌─────────────┐
+          │ PDF Pipeline│           │   Retrieval  │
+          │   PyMuPDF   │           │    FAISS     │
+          └──────┬──────┘           └──────┬──────┘
+                 │                         │
+                 └────────────┬────────────┘
+                              ▼
+                     ┌─────────────────┐
+                     │      Qwen3      │
+                     │    llama.cpp    │
+                     └────────┬────────┘
+                              │
+                              ▼
+                     ┌─────────────────┐
+                     │ Answer + Sources│
+                     └─────────────────┘
+```
 
-| 🧠 RAG | Generate answers from retrieved context |
+## Tech Stack
 
-| 📚 Multi-Document | Query multiple documents |
-
-| 💬 Conversations | Maintain chat history |
-
-| 📍 Sources | Return relevant document pages |
-
-| 🦙 Local AI | Run Qwen3 through llama.cpp |
-
-| 🚀 API | FastAPI REST backend |
-
-| 🐳 Deployment | Docker + Docker Compose |
-
-| 🧪 Testing | Pytest + RAG evaluation |
-
-| ⚙️ CI | GitHub Actions |
-
-
-
-\---
-
-
-
-\## 🧩 Tech Stack
-
-
-
-\*\*Backend\*\*
-
-
+**Backend**
 
 `Python` · `FastAPI` · `Pydantic` · `SQLAlchemy`
 
-
-
-\*\*AI / Retrieval\*\*
-
-
+**AI / Retrieval**
 
 `Sentence Transformers` · `FAISS` · `RAG` · `Qwen3` · `llama.cpp`
 
-
-
-\*\*Frontend\*\*
-
-
+**Frontend**
 
 `HTML` · `CSS` · `JavaScript`
 
+**Infrastructure**
 
+`Docker` · `Docker Compose` · `GitHub Actions`
 
-\*\*Infrastructure\*\*
+## Quick Start
 
+### Requirements
 
+- Python 3.11+
+- Git
+- OpenAI-compatible LLM endpoint
 
-`Docker` · `GitHub Actions`
+For local inference:
 
+- llama.cpp
+- Compatible GGUF model
 
-
-\---
-
-
-
-\## 🏗️ Architecture
-
-
-
-```text
-
-&#x20;                   ┌───────────────┐
-
-&#x20;                   │    Browser    │
-
-&#x20;                   └───────┬───────┘
-
-&#x20;                           │
-
-&#x20;                           ▼
-
-&#x20;                   ┌───────────────┐
-
-&#x20;                   │    FastAPI    │
-
-&#x20;                   └───────┬───────┘
-
-&#x20;                           │
-
-&#x20;             ┌─────────────┴─────────────┐
-
-&#x20;             │                           │
-
-&#x20;             ▼                           ▼
-
-&#x20;       ┌─────────────┐             ┌─────────────┐
-
-&#x20;       │ PDF Pipeline│             │   FAISS     │
-
-&#x20;       │   PyMuPDF   │             │  Retrieval  │
-
-&#x20;       └──────┬──────┘             └──────┬──────┘
-
-&#x20;              │                           │
-
-&#x20;              └─────────────┬─────────────┘
-
-&#x20;                            ▼
-
-&#x20;                     ┌─────────────┐
-
-&#x20;                     │    Qwen3    │
-
-&#x20;                     │  llama.cpp  │
-
-&#x20;                     └──────┬──────┘
-
-&#x20;                            ▼
-
-&#x20;                     Answer + Sources
-
-```
-
-
-
-\---
-
-
-
-\## 🚀 Quick Start
-
-
-
-\### Requirements
-
-
-
-\- Python 3.11+
-
-\- Git
-
-\- OpenAI-compatible LLM endpoint
-
-
-
-\### Install
-
-
+### Clone
 
 ```bash
-
 git clone https://github.com/Niharm31/ai-document-assistant.git
-
 cd ai-document-assistant
-
-
-
-python -m venv .venv
-
-.venv\\Scripts\\activate
-
-
-
-pip install -r requirements.txt
-
 ```
 
+### Install
 
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-\### Configure
-
-
+### Configure
 
 Create `.env` from `.env.example`.
 
-
-
 For local llama.cpp:
 
-
-
 ```env
-
-LLM\_BASE\_URL=http://127.0.0.1:8080/v1
-
-LLM\_API\_KEY=local
-
-LLM\_MODEL=your-model-path
-
+LLM_BASE_URL=http://127.0.0.1:8080/v1
+LLM_API_KEY=local
+LLM_MODEL=your-model-path
 ```
 
+### Run
 
-
-\### Run
-
-
-
-```bash
-
+```powershell
 uvicorn app.main:app --host 0.0.0.0 --port 8000
-
 ```
-
-
 
 Open:
 
-
-
 ```text
-
 http://127.0.0.1:8000
-
 ```
 
+## Local LLM
 
-
-\---
-
-
-
-\## 🦙 Local Qwen3
-
-
-
-The application supports local GGUF models through llama.cpp.
-
-
+The application supports Qwen3 GGUF models through llama.cpp.
 
 ```text
-
 Browser
-
-&#x20;  │
-
-&#x20;  ▼
-
+   │
+   ▼
 FastAPI :8000
-
-&#x20;  │
-
-&#x20;  ▼
-
+   │
+   ▼
 llama.cpp :8080
-
-&#x20;  │
-
-&#x20;  ▼
-
-Qwen3 GGUF
-
+   │
+   ▼
+Qwen3
 ```
 
+Check llama.cpp:
 
+```powershell
+curl http://127.0.0.1:8080/health
+```
 
-\---
+Expected:
 
+```json
+{"status":"ok"}
+```
 
-
-\## 🐳 Docker
-
-
+## Docker
 
 ```bash
-
 docker compose up --build
-
 ```
 
-
-
-For Docker on Windows connecting to llama.cpp running on the host:
-
-
+When llama.cpp runs directly on Windows while the application runs inside Docker:
 
 ```env
-
-LLM\_BASE\_URL=http://host.docker.internal:8080/v1
-
+LLM_BASE_URL=http://host.docker.internal:8080/v1
 ```
 
+See [`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment details.
 
+## API
 
-See \[`DEPLOYMENT.md`](DEPLOYMENT.md) for deployment details.
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/health` | GET | Health check |
+| `/ready` | GET | Readiness check |
+| `/api/documents` | GET | List documents |
+| `/api/documents/upload` | POST | Upload PDF |
+| `/api/documents/{id}` | DELETE | Delete document |
+| `/api/chat` | POST | Ask a question |
+| `/api/chat/{session_id}/history` | GET | Conversation history |
 
-
-
-\---
-
-
-
-\## 📊 RAG Evaluation
-
-
+## Evaluation
 
 Retrieval evaluation includes:
 
-
-
-\- \*\*Hit@K\*\*
-
-\- \*\*Mean Reciprocal Rank (MRR)\*\*
-
-
+- **Hit@K**
+- **Mean Reciprocal Rank (MRR)**
 
 Run:
 
-
-
 ```bash
-
-python scripts/evaluate\_rag.py
-
+python scripts/evaluate_rag.py
 ```
 
-
-
-\---
-
-
-
-\## 🧪 Testing
-
-
+## Testing
 
 ```bash
-
 pytest
-
 ```
 
-
-
-\---
-
-
-
-\## 📁 Project Structure
-
-
+## Project Structure
 
 ```text
-
-app/
-
-├── api/
-
-├── core/
-
-├── database/
-
-├── models/
-
-└── services/
-
-
-
-frontend/
-
-tests/
-
-evals/
-
-scripts/
-
-docs/
-
-
-
-Dockerfile
-
-docker-compose.yml
-
-requirements.txt
-
-DEPLOYMENT.md
-
+ai-document-assistant/
+│
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── database/
+│   ├── models/
+│   └── services/
+│
+├── frontend/
+├── tests/
+├── evals/
+├── scripts/
+├── docs/
+├── data/
+│
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── DEPLOYMENT.md
+└── README.md
 ```
 
+## Roadmap
 
+- [ ] Streaming responses
+- [ ] OCR for scanned PDFs
+- [ ] Hybrid search
+- [ ] Reranking
+- [ ] Authentication
+- [ ] Cloud deployment
+- [ ] Distributed vector storage
 
-\---
-
-
-
-\## 🔭 Roadmap
-
-
-
-\- \[ ] Streaming responses
-
-\- \[ ] OCR for scanned PDFs
-
-\- \[ ] Hybrid search
-
-\- \[ ] Reranking
-
-\- \[ ] Authentication
-
-\- \[ ] Cloud deployment
-
-\- \[ ] Distributed vector storage
-
-
-
-\---
-
-
-
-\## 📄 License
-
-
+## License
 
 MIT License
 
+## Author
 
+**Nihar Mandal**
 
-\---
+BTech — Artificial Intelligence & Machine Learning
 
-
-
-\### Nihar Mandal
-
-
-
-BTech — Artificial Intelligence \& Machine Learning
-
-
-
-\[GitHub](https://github.com/Niharm31) · \[LinkedIn](https://www.linkedin.com/in/nihar-mandal-b512b5288)
-
+[GitHub](https://github.com/Niharm31) · [LinkedIn](https://www.linkedin.com/in/nihar-mandal-b512b5288)
