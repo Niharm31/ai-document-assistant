@@ -1,0 +1,16 @@
+services:
+  ai-document-assistant:
+    build: .
+    ports:
+      - "${PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      # When llama.cpp runs directly on Windows host:
+      # LLM_BASE_URL=http://host.docker.internal:8080/v1
+      HF_HOME: /app/data/huggingface
+    volumes:
+      - ./data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

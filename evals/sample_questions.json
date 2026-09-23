@@ -1,0 +1,12 @@
+{
+  "description": "Add questions after uploading a known evaluation PDF. expected_pages may contain one or more page numbers.",
+  "questions": [
+    {
+      "question": "REPLACE_WITH_A_DOCUMENT_SPECIFIC_QUESTION",
+      "document_id": "REPLACE_WITH_DOCUMENT_ID",
+      "expected_pages": [
+        1
+      ]
+    }
+  ]
+}

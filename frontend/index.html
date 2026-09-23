@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Local RAG document assistant with citations.">
+  <title>AI Document Assistant</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <p class="eyebrow">LOCAL RAG WORKSPACE</p>
+        <h1>AI Document Assistant</h1>
+        <p class="subtitle">Upload PDFs, search their contents, compare multiple documents, and ask grounded questions with page-level sources.</p>
+      </div>
+      <span id="health" class="status">Checking...</span>
+    </header>
+
+    <section class="grid">
+      <aside class="panel sidebar">
+        <div class="section-head">
+          <h2>Documents</h2>
+          <button id="refresh" class="ghost">Refresh</button>
+        </div>
+
+        <form id="uploadForm">
+          <input id="file" type="file" accept="application/pdf" required>
+          <button type="submit">Upload PDF</button>
+        </form>
+
+        <div class="scope">
+          <label for="scopeSelect">Search scope</label>
+          <select id="scopeSelect">
+            <option value="">All documents</option>
+          </select>
+        </div>
+
+        <div id="documents" class="documents"></div>
+      </aside>
+
+      <section class="panel chat-panel">
+        <div class="chat-toolbar">
+          <span id="sessionLabel">Conversation: default</span>
+          <button id="clearHistory" class="ghost">Clear chat</button>
+        </div>
+
+        <div id="messages" class="messages">
+          <div class="message assistant">Upload a document and ask a question about it.</div>
+        </div>
+
+        <form id="chatForm" class="composer">
+          <input id="question" placeholder="Ask something about your documents..." autocomplete="off">
+          <button>Ask</button>
+        </form>
+      </section>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
